@@ -1,0 +1,53 @@
+{
+  "name": "haseplayer",
+  "version": "1.0.0",
+  "description": "HasePlayer — локальный музыкальный плеер",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "dependencies": {
+    "discord-rpc": "^4.0.1",
+    "music-metadata": "^7.14.0"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.hase.player",
+    "productName": "HasePlayer",
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "style.css",
+      "renderer.js",
+      "mini.html",
+      "mini.css",
+      "mini.js",
+      "package.json",
+      "icon.png",
+      "node_modules/**/*",
+      "!node_modules/.cache"
+    ],
+    "extraResources": [
+      { "from": "icon.png", "to": "icon.png" }
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HasePlayer",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

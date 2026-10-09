@@ -1,0 +1,153 @@
+/* language: CSS, file: mini.css */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%; overflow: hidden;
+  background: transparent;
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+.mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100vh;
+  padding: 12px 14px;
+  background: #0a0a0a;
+  color: #f5f5f5;
+  border: 1px solid #222;
+  border-radius: 16px;
+  -webkit-app-region: drag;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Контейнер обложки. Обе картинки лежат здесь. */
+.mini-cover-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+
+.mini-cover-img {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  background-size: cover;
+  background-position: center;
+  will-change: transform, opacity;
+}
+
+/* Анимация: текущая улетает влево */
+@keyframes flyOutLeft {
+  from { transform: translateX(0) scale(1); opacity: 1; }
+  to   { transform: translateX(-120%) scale(.85); opacity: 0; }
+}
+/* Новая прилетает справа */
+@keyframes flyInRight {
+  from { transform: translateX(120%) scale(.85); opacity: 0; }
+  to   { transform: translateX(0) scale(1); opacity: 1; }
+}
+/* При движении назад — наоборот */
+@keyframes flyOutRight {
+  from { transform: translateX(0) scale(1); opacity: 1; }
+  to   { transform: translateX(120%) scale(.85); opacity: 0; }
+}
+@keyframes flyInLeft {
+  from { transform: translateX(-120%) scale(.85); opacity: 0; }
+  to   { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+.fly-out-left  { animation: flyOutLeft  .35s ease forwards; }
+.fly-in-right  { animation: flyInRight  .35s ease forwards; }
+.fly-out-right { animation: flyOutRight .35s ease forwards; }
+.fly-in-left   { animation: flyInLeft   .35s ease forwards; }
+
+/* Текст тоже плавно меняется */
+.mini-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.mini-title, .mini-artist {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity .3s, transform .3s;
+}
+
+.mini-title { font-size: 13px; font-weight: 700; }
+.mini-artist { font-size: 11px; color: #888; margin-bottom: 6px; }
+
+.text-swap { opacity: 0; transform: translateY(-6px); }
+
+.mini-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  -webkit-app-region: no-drag;
+}
+.mini-controls button {
+  border: none;
+  background: transparent;
+  color: #bbb;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s, transform .1s;
+}
+.mini-controls button:hover { background: #1c1c1c; color: #fff; }
+.mini-controls button:active { transform: scale(.9); }
+
+#miniPrev, #miniNext { width: 28px; height: 28px; font-size: 14px; }
+.mini-play {
+  width: 36px; height: 36px;
+  background: #fff !important;
+  color: #000 !important;
+  font-size: 14px;
+  box-shadow: 0 4px 14px rgba(255,255,255,.15);
+}
+.mini-play:hover { transform: scale(1.06); }
+
+.mini-actions {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  display: flex;
+  gap: 2px;
+  -webkit-app-region: no-drag;
+}
+.mini-actions button {
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 12px;
+  width: 20px; height: 20px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background .15s, color .15s;
+}
+.mini-actions button:hover { background: #1c1c1c; color: #fff; }
+
+/* Светлая тема */
+body.light .mini { background: #ffffff; color: #111; border-color: #e2e2e5; }
+body.light .mini-artist { color: #777; }
+body.light .mini-controls button { color: #777; }
+body.light .mini-controls button:hover { background: #e8e8ea; color: #111; }
+body.light .mini-play { background: #000 !important; color: #fff !important; box-shadow: 0 4px 14px rgba(0,0,0,.15); }
+body.light .mini-cover-wrap { box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+body.light .mini-cover-img { background: linear-gradient(135deg, #eaeaea, #f5f5f5); }
+body.light .mini-actions button { color: #999; }
+body.light .mini-actions button:hover { background: #e8e8ea; color: #111; }
